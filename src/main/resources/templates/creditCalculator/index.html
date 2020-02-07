@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Кредитный калькулятор</title>
+</head>
+<body>
+<section>
+    <div class="row">
+        <div class="col">
+            <h1>Кредитный калькулятор</h1>
+            <form>
+                <div class="form-group">
+                    <label for="amountId">Сумма кредита</label>
+                    <input type="number" class="form-control" id="amountId"
+                           th:max="${props.getMaxLoan()}"
+                           th:min="${props.getMinLoan()}">
+                    <small class="form-text text-muted">допустимые значения от <span
+                            th:text="${#numbers.formatInteger(props.getMinLoan(), 3, 'WHITESPACE')}">100 000</span> до
+                        <span
+                                th:text="${#numbers.formatInteger(props.getMaxLoan(), 3, 'WHITESPACE')}">5 000 000</span></small>
+                </div>
+                <div class="form-group">
+                    <label for="periodId">Срок кредита</label>
+                    <input type="number" class="form-control" id="periodId"
+                           th:max="${props.getMaxPeriod()}"
+                           th:min="${props.getMinPeriod()}">
+                    <small class="form-text text-muted">допустимые значения от 12 до 60</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="percentId">Годовая процентная ставка</label>
+                    <input disabled type="number" class="form-control" id="percentId"
+                           th:value="${#numbers.formatDecimal(props.getInterestPerYear(), 2, 2)}">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Рассчитать</button>
+            </form>
+
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Номер платежа</th>
+                    <th scope="col">Месяц/Год</th>
+                    <th scope="col">Платеж по основному долгу</th>
+                    <th scope="col">Платеж по процентам</th>
+                    <th scope="col">Остаток основного долга</th>
+                    <th scope="col">Общая сумма платежа</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</section>
+</body>
+</html>
